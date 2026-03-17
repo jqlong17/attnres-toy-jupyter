@@ -45,15 +45,6 @@ MoonshotAI 在 Attention Residuals 中提出：标准残差会把历史层表示
 
 说明：横轴是历史深度状态，纵轴是当前层。颜色越亮，表示该层越偏向使用那个历史状态，而不是做统一相加。
 
-## 使用截图说明
-
-如果你把这个项目上传到 GitHub，推荐展示两种内容：
-
-- `README.md` 中的三张 PNG 图，方便别人快速预览
-- `notebooks/attnres_toy_demo.executed.ipynb`，方便别人直接查看完整运行结果
-
-这样别人即使不在本地运行，也能先从 README 看懂项目，再去 notebook 看细节。
-
 ## 快速开始
 
 ```bash
@@ -71,23 +62,6 @@ jupyter lab
 
 直接按顺序运行即可。
 
-## GitHub 展示建议
-
-如果你想把项目上传到 GitHub，并且让别人一打开就能看到结果，建议保留下面这些文件：
-
-- `notebooks/attnres_toy_demo.ipynb`：源码 notebook
-- `notebooks/attnres_toy_demo.executed.ipynb`：已经运行并保存输出的 notebook
-- `figures/loss_curve.png`
-- `figures/hidden_norms.png`
-- `figures/attnres_heatmap.png`
-
-说明：
-
-- GitHub 会直接渲染 `.ipynb`
-- 如果 notebook 文件里保存了输出，别人可以直接看到文本、表格和图
-- `executed.ipynb` 更适合直接展示结果
-- `figures/` 里的 PNG 更适合放到 README，让别人不用打开 notebook 也能看懂
-
 ## 项目结构
 
 - `src/attnres_toy.py`：toy 数据生成、baseline 模型、AttnRes 模型、训练与画图工具
@@ -101,3 +75,9 @@ jupyter lab
 - notebook 会自动把关键图导出到 `figures/`，便于上传到 GitHub
 - 这是一个机制演示项目，不是论文中的训练规模复现
 - License: MIT，适合公开分享和二次使用
+
+## 参考链接
+
+- 技术报告（PDF）：`https://github.com/MoonshotAI/Attention-Residuals/blob/master/Attention_Residuals.pdf`
+- 官方仓库：`https://github.com/MoonshotAI/Attention-Residuals`
+- Kimi 官方 X 账号：`https://x.com/Kimi_Moonshot`
