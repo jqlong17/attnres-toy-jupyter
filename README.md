@@ -45,6 +45,12 @@ MoonshotAI 在 Attention Residuals 中提出：标准残差会把历史层表示
 
 说明：横轴是历史深度状态，纵轴是当前层。颜色越亮，表示该层越偏向使用那个历史状态，而不是做统一相加。
 
+### 4. MVP 性能-效果权衡（本地 CPU）
+
+![MVP Compare](figures/mvp_compare.png)
+
+说明：在本地小规模重复实验下，对比 `baseline`、`attnres`、`depthcross_lite` 在不同 `depth_repeats` 设定的平均 eval loss 和训练耗时，用于快速判断“提升是否显著且是否划算”。
+
 ## 快速开始
 
 ```bash
