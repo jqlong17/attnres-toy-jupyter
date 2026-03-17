@@ -483,6 +483,7 @@ class TinyTransformerLM(nn.Module):
             )
         self.config = config
         self.variant = variant
+        self.depth_repeats = 1
         self.token_emb = nn.Embedding(config.vocab_size, config.d_model)
         self.pos_emb = nn.Embedding(config.seq_len, config.d_model)
         self.blocks = nn.ModuleList(
@@ -517,20 +518,22 @@ class TinyTransformerLM(nn.Module):
 
         metrics: list[dict[str, torch.Tensor]] = []
         if self.variant == "baseline":
-            for block in self.blocks:
-                x, block_metrics = block(x)
-                metrics.append(block_metrics)
+            for _ in range(self.depth_repeats):
+                for block in self.blocks:
+                    x, block_metrics = block(x)
+                    metrics.append(block_metrics)
         elif self.variant in {"attnres", "meanres", "depthcross", "depthcross_lite"}:
-            # 对于 AttnRes，需要保留从 embedding 开始的所有历史状态。
             states = [x]
-            for block in self.blocks:
-                x, block_metrics = block(states, return_weights=return_metrics)
-                states.append(x)
-                metrics.append(block_metrics)
+            for _ in range(self.depth_repeats):
+                for block in self.blocks:
+                    x, block_metrics = block(states, return_weights=return_metrics)
+                    states.append(x)
+                    metrics.append(block_metrics)
         else:
-            for block in self.blocks:
-                x, block_metrics = block(x)
-                metrics.append(block_metrics)
+            for _ in range(self.depth_repeats):
+                for block in self.blocks:
+                    x, block_metrics = block(x)
+                    metrics.append(block_metrics)
 
         # 最后映射到词表维度，得到每个位置对下一个 token 的 logits。
         logits = self.lm_head(self.final_norm(x))
